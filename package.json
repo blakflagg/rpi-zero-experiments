@@ -1,0 +1,27 @@
+{
+  "name": "rpi-zero-experiments",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+	  "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blakflagg/rpi-zero-experiments.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blakflagg/rpi-zero-experiments/issues"
+  },
+  "homepage": "https://github.com/blakflagg/rpi-zero-experiments#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "install": "^0.11.0",
+    "onoff": "^3.1.0",
+    "socketio": "^1.0.0"
+  }
+}
