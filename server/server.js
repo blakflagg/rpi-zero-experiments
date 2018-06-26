@@ -1,7 +1,7 @@
-const Gpio = require('onoff').Gpio;
-const led1 = new Gpio(13,'out');
-const led2 = new Gpio(6,'out');
-const button = new Gpio(27,'in','both');
+// const Gpio = require('onoff').Gpio;
+// const led1 = new Gpio(13,'out');
+// const led2 = new Gpio(6,'out');
+// const button = new Gpio(27,'in','both');
 const http = require('http');
 const path = require('path');
 const publicPath = path.join(__dirname,'../public');
@@ -22,8 +22,8 @@ let relayState = {
 
 const updateGPIO = () => {
 
-  led1.writeSync(relayState.relay1);
-  led2.writeSync(relayState.relay2);
+  // led1.writeSync(relayState.relay1);
+  // led2.writeSync(relayState.relay2);
 };
 app.use(express.static(publicPath));
 
