@@ -1,52 +1,51 @@
 import React from 'react';
-import RelaySwitch from './RelaySwitch';
+import RelayList from './RelayList';
 import socketIOClient from 'socket.io-client';
 
 
 class RelayControl extends React.Component {
   constructor(){
     super();
-    const socket = socketIOClient(endpoint);
-    const endpoint = "http://127.0.0.1.3000";
 
+    const endpoint = "http://127.0.0.1:3000";
     this.state = {
       response: false,
-      endpoint: "http://127.0.0.1:3000",
-      relay1: 0,
-      relay2: 0,
-      relay3: 0
+      relays: []
     };
+
     this.handleClick = this.handleClick.bind(this);
+    this.socket = socketIOClient(endpoint);
   }
   componentDidMount() {
-    // socket.on('connect', data => this.setState({response: data}));
     this.socket.on('connect', () => {
       console.log('connected to server');
     })
-    this. socket.on('stateUpdate', data => this.setState(
-      { relay1: data.relay1,
-        relay2: data.relay2,
-        relay3: data.relay3
-      }))
+
+    this.socket.on('stateUpdate', data =>{
+     this.setState(() => ({ relays: data }));
+    })
+
     this.socket.on('disconnect', () => {
       console.log('disconnected from server');
     })
   }
 
   handleClick = (relayID) => {
-    socket.emit('updateRelay', {
-      relay: relayID,
-      value: 1
+    
+    this.socket.emit('updateRelay', {
+      relayID: relayID,
+      relayState: this.state.relays[relayID -1].relayState ^= 1
+    },() =>{
+      console.log('callback');
     })
   }
+
   render() {
     return (
 
       <div className="container">
       <h2>Relay Control</h2>
-        <RelaySwitch relayState={this.state.relay1} handleClick={this.handleClick} relayID="1" />
-        <RelaySwitch relayState={this.state.relay2} handleClick={this.handleClick} relayID="2" />
-        <RelaySwitch relayState={this.state.relay3} handleClick={this.handleClick} relayID="3" />
+      <RelayList handleClick={ this.handleClick } relays={this.state.relays}/>
       </div>
     );
   }

@@ -1,7 +1,7 @@
-// const Gpio = require('onoff').Gpio;
-// const led1 = new Gpio(13,'out');
-// const led2 = new Gpio(6,'out');
-// const button = new Gpio(27,'in','both');
+const Gpio = require('onoff').Gpio;
+const led1 = new Gpio(13,'out');
+const led2 = new Gpio(6,'out');
+const button = new Gpio(27,'in','both');
 const http = require('http');
 const path = require('path');
 const publicPath = path.join(__dirname,'../public');
@@ -14,39 +14,33 @@ const app = express();
 const server = http.createServer((app));
 const io = socketIO(server);
 
-let relayState = {
-  relay1: 0,
-  relay2: 0,
-  relay3: 0
-}
+let relays = [];
+
+relays.push({relayID: 1, relayState: 0});
+relays.push({relayID: 2, relayState: 0});
+relays.push({relayID: 3, relayState: 0});
+
 
 const updateGPIO = () => {
 
-  // led1.writeSync(relayState.relay1);
-  // led2.writeSync(relayState.relay2);
+  led1.writeSync(relays[0].relayState);
+  led2.writeSync(relays[1].relayState);
 };
 app.use(express.static(publicPath));
 
 
 io.on('connection',(socket) => {
   console.log('new socket connection acquired');
-  socket.emit('stateUpdate',relayState);
+  socket.emit('stateUpdate',relays);
 
-  socket.on('updateRelay', (relayTransport) => {
+  socket.on('updateRelay', (relayTransport,callback) => {
     console.log(relayTransport);
-    switch(relayTransport.relay){
-      case 1:
-        relayState.relay1 = relayTransport.value;
-        break;
-      case 2:
-        relayState.relay2 = relayTransport.value;
-        break;
-      case 3:
-        relayState.relay3 = relayTransport.value;
-        break;
-    }
+    relays[relayTransport.relayID - 1] = relayTransport;
+    console.log(relays);
+
     updateGPIO();
-    io.emit('stateUpdate', relayState);
+    io.emit('stateUpdate', relays);
+    callback();
 
   });
 

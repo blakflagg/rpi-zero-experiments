@@ -1,15 +1,21 @@
 import React from "react";
 
-const RelaySwitch = (props) => (
-  <div className="switch-container">
+const RelaySwitch = (props) => {
+ 
+  return (
+    <div className="switch-container">
     <div className="switch">
-      <input type="checkbox" name="toggle" onClick={ props.handleClick } checked={ props.relayState } relayID={props.relayID} />
+      <input type="checkbox" name="toggle" 
+        onClick={ (e) => {
+        props.handleClick(props.relay.relayID)} } 
+        checked={ props.relay.relayState } />
       <label for="toggle">
         <i></i>
       </label>
       <span></span>
     </div>
   </div>
-)
+  )
+}
 
 export default RelaySwitch;
