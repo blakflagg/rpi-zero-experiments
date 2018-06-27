@@ -7,7 +7,7 @@
     "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:dev": "webpack",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server --hot"
   },
   "repository": "git+https://github.com/blakflagg/rpi-zero-experiments.git",
   "author": "blakflagg <dduffy2@outlook.com>",
@@ -33,6 +33,7 @@
     "react-dom": "^16.4.1",
     "react-router": "^4.3.1",
     "sass-loader": "^7.0.3",
+    "socket.io-client": "^2.1.1",
     "socketio": "^1.0.0",
     "webpack": "^4.12.1"
   },
@@ -40,6 +41,7 @@
     "dotenv": "^6.0.0",
     "live-server": "^1.2.0",
     "nodemon": "^1.17.5",
-    "webpack-cli": "^3.0.8"
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4"
   }
 }
