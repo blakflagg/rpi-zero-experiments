@@ -31,10 +31,10 @@ class RelayControl extends React.Component {
   }
 
   handleClick = (relayID) => {
-    
+    const cloneRelays = this.state.relays;
     this.socket.emit('updateRelay', {
       relayID: relayID,
-      relayState: this.state.relays[relayID -1].relayState ^= 1
+      relayState: this.state.relays[cloneRelays.findIndex((obj) => {return obj.relayID === relayID })].relayState ^= 1
     },() =>{
       //Call Back Code here if needed
     })
