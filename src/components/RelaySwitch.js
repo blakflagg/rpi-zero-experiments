@@ -6,8 +6,7 @@ const RelaySwitch = (props) => {
     <div className="switch-container">
     <div className="switch">
       <input type="checkbox" name="toggle" 
-        onClick={ (e) => {
-        props.handleClick(props.relay.relayID)} } 
+        onClick={(e) => {props.handleClick(props.relay.relayID)} } 
         checked={ props.relay.relayState } />
       <label for="toggle">
         <i></i>

@@ -1,15 +1,15 @@
 import React from 'react';
 import RelayList from './RelayList';
 import socketIOClient from 'socket.io-client';
+import ip from 'ip';
 
 
 class RelayControl extends React.Component {
   constructor(){
     super();
 
-    const endpoint = "http://127.0.0.1:3000";
+    const endpoint = `http://${ip.address()}:3000`;
     this.state = {
-      response: false,
       relays: []
     };
 
@@ -36,7 +36,7 @@ class RelayControl extends React.Component {
       relayID: relayID,
       relayState: this.state.relays[relayID -1].relayState ^= 1
     },() =>{
-      console.log('callback');
+      //Call Back Code here if needed
     })
   }
 

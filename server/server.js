@@ -34,13 +34,9 @@ io.on('connection',(socket) => {
   socket.emit('stateUpdate',relays);
 
   socket.on('updateRelay', (relayTransport,callback) => {
-    console.log(relayTransport);
     relays[relayTransport.relayID - 1] = relayTransport;
-    console.log(relays);
-
     updateGPIO();
     io.emit('stateUpdate', relays);
-    callback();
 
   });
 
