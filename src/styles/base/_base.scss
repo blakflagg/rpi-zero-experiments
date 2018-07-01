@@ -1,25 +1,21 @@
-//rem
-* {
-  box-sizing: border-box;
-}
-html {
-  font-size: 62.5%; //this is a conversion percentage that scales rems so that they are easy to read
-}
-body {
-  color: $dark-grey;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: $m-size;
-  line-height: 1.6;
+.container{
+  background: gray;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
 }
 
-button {
-  cursor: pointer;
+.container h2{
+  display: flex;
+  align-items: center;
+  color: red;
+  width: 100%;
+  justify-content: center;
 }
 
-button:disabled{
-  cursor: default;
-}
-
-.is-active {
-  font-weight: bold;
+.switch-container{
+display: flex;
+padding:0;
+margin: 0;
 }

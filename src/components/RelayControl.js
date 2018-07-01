@@ -2,6 +2,8 @@ import React from 'react';
 import RelayList from './RelayList';
 import socketIOClient from 'socket.io-client';
 import ip from 'ip';
+import 'normalize.css/normalize.css';
+import '../styles/styles.scss';
 
 
 class RelayControl extends React.Component {
