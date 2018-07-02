@@ -4,6 +4,9 @@ const moment = require('moment');
 
 module.exports = timeProcessor = (ts) => {
   const e = new emitter();
+  let updateBuffer = [];
+  let isUpdate = false;
+
   setInterval(() => {
 
     ts.map((timeEntry) => {
@@ -29,14 +32,18 @@ module.exports = timeProcessor = (ts) => {
           if (minute === scheduledMin) {
 
             if (second === scheduledSecond) {
-              newRelayState = { relayID: timeEntry.relayID, relayState: timeEntry.relayState };
-              e.emit('relayUpdate', newRelayState )
+              updateBuffer.push({ relayID: timeEntry.relayID, relayState: timeEntry.relayState });
             }
 
           }
         }
       }
     })
+    // console.log(updateBuffer);
+    if (updateBuffer.length > 0) {
+      e.emit('relayUpdate', updateBuffer);
+      updateBuffer = [];
+    }
   }, 1000)
 
   return e;

@@ -46,7 +46,11 @@ const updateGPIO = () => {
 };
 
 const setRelayState = (newRelayState) => {
-    relays[relays.findIndex((obj) => { return obj.relayID === newRelayState.relayID })] = newRelayState;
+  // console.log(newRelayState);
+  newRelayState.map((relay) => {
+
+     relays[relays.findIndex((obj) => { return obj.relayID === relay.relayID })] = relay;
+  })
 }
 
 app.use(express.static(publicPath));
@@ -83,7 +87,8 @@ io.on('connection', (socket) => {
 
 
 process.on('SIGINT', function () {
-  led.unexport();
+  led1.unexport();
+  led2.unexport();
   button.unexport();
 });
 console.log('process running');
