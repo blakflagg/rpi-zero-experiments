@@ -31,7 +31,7 @@ timeStore.push({ relayID: 2, relayState: 0, action: 'off', day: moment().day('Su
 
 
 
-const timer = timeProcessor(timeStore);
+const timer = timeProcessor.timeProcessor(timeStore);
 
 
 const updateGPIO = () => {
@@ -39,38 +39,36 @@ const updateGPIO = () => {
   // led1.writeSync(relays[0].relayState);
   // led2.writeSync(relays[1].relayState);
 
-  console.log(relays[0].relayState);
-  console.log(relays[1].relayState);
+  // console.log(relays[0].relayState);
+  // console.log(relays[1].relayState);
 
   io.emit('stateUpdate', relays);
 };
 
 const setRelayState = (newRelayState) => {
-  // console.log(newRelayState);
   newRelayState.map((relay) => {
 
-     relays[relays.findIndex((obj) => { return obj.relayID === relay.relayID })] = relay;
+    relays[relays.findIndex((obj) => { return obj.relayID === relay.relayID })] = relay;
   })
 }
-
-app.use(express.static(publicPath));
-
-
-timer.on('relayUpdate', (newRelayState) => {
+const timerListener = (newRelayState) => {
 
   setRelayState(newRelayState);
   updateGPIO();
-})
+}
+app.use(express.static(publicPath));
+
+
+timer.on('relayUpdate', timerListener);
+
+
 
 io.on('connection', (socket) => {
   console.log('new socket connection acquired');
   socket.emit('stateUpdate', relays);
 
   socket.on('updateRelay', (relayTransport, callback) => {
-    // relays[relays.findIndex((obj) => { return obj.relayID === relayTransport.relayID })] = relayTransport;
-
     setRelayState(relayTransport);
-
     updateGPIO();
   });
 
@@ -87,9 +85,13 @@ io.on('connection', (socket) => {
 
 
 process.on('SIGINT', function () {
-  led1.unexport();
-  led2.unexport();
-  button.unexport();
+  timer.removeListener('relayUpdate', timerListener);
+  timeProcessor.clearTimer();
+  // led1.unexport();
+  // led2.unexport();
+  // button.unexport();
+  server.close();
+  process.exit(0);
 });
 console.log('process running');
 

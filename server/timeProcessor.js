@@ -2,12 +2,13 @@
 const emitter = require('events').EventEmitter;
 const moment = require('moment');
 
-module.exports = timeProcessor = (ts) => {
+let timeOut;
+ const timeProcessor = (ts) => {
   const e = new emitter();
   let updateBuffer = [];
   let isUpdate = false;
 
-  setInterval(() => {
+  timeOut = setInterval(() => {
 
     ts.map((timeEntry) => {
       var cTime = moment(timeEntry.time).valueOf().toString();
@@ -44,7 +45,15 @@ module.exports = timeProcessor = (ts) => {
       e.emit('relayUpdate', updateBuffer);
       updateBuffer = [];
     }
+
   }, 1000)
 
   return e;
 }
+
+const clearTimer = () => {
+
+  clearInterval(timeOut);
+}
+
+module.exports = {timeProcessor, clearTimer};
