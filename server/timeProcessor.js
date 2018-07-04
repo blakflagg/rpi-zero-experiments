@@ -11,19 +11,19 @@ let timeOut;
   timeOut = setInterval(() => {
 
     ts.map((timeEntry) => {
-      var cTime = moment(timeEntry.time).valueOf().toString();
-      var scheduledDay = moment(timeEntry.day).day();
-      var scheduledHour = moment(timeEntry.time).hour();
-      var scheduledMin = moment(timeEntry.time).minute();
-      var scheduledSecond = moment(timeEntry.time).second();
+      //var cTime = moment(timeEntry.time).valueOf().toString();
+      var scheduledDay = timeEntry.time.day;
+      var scheduledHour = timeEntry.time.hour;
+      var scheduledMin = timeEntry.time.minute;
+      var scheduledSecond = timeEntry.time.seconds;
 
       var day = moment().day();
       var hour = moment().hour();
       var minute = moment().minute();
       var second = moment().second();
 
-      //console.log(`${day} ${hour} ${minute} ${second}`);
-      //console.log(`${scheduledDay} ${scheduledHour} ${scheduledMin} ${scheduledSecond}`);
+      // console.log(`${day} ${hour} ${minute} ${second}`);
+      // console.log(`${scheduledDay} ${scheduledHour} ${scheduledMin} ${scheduledSecond}`);
 
 
       if (day === scheduledDay) {
