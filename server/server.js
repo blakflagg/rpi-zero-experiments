@@ -1,7 +1,7 @@
 // const Gpio = require('onoff').Gpio;
-// const led1 = new Gpio(13,'out');
+// const led1 = new Gpio(5,'out');
 // const led2 = new Gpio(6,'out');
-// const led3 = new Gpio(5,'out');
+// const led3 = new Gpio(13,'out');
 // const button = new Gpio(27,'in','both');
 const http = require('http');
 const path = require('path');
@@ -29,7 +29,6 @@ let timeStore = [];
 const addTimeEntry = (timeEntry) => {
   timeEntry.id = uuid();
   timeStore.push(timeEntry);
-  console.log(timeStore);
 }
 
 const deleteTimeEntry = (id) => {
