@@ -28,7 +28,7 @@
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-alpha.0",
     "ip": "^1.1.5",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "node-sass": "^4.9.0",
     "normalize.css": "^8.0.0",
     "onoff": "^3.1.0",
